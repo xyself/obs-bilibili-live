@@ -57,13 +57,23 @@ jobs:
         cmake --build obs-studio\build --config Release
 
     # ===============================
-    # 6. 配置插件
+    # 6. vcpkg（如果仓库包含 vcpkg.json，先安装依赖）
+    # ===============================
+    - name: Setup vcpkg (manifest)
+      uses: lukka/run-vcpkg@v11
+      with:
+        runVcpkgInstall: true
+        vcpkgJsonGlob: "vcpkg.json"
+
+    # ===============================
+    # 7. 配置插件（使用 vcpkg toolchain）
     # ===============================
     - name: Configure Plugin
       shell: cmd
       run: |
         cmake -S . -B build ^
           -DOBS_SOURCE_DIR=%CD%\obs-studio ^
+          -DCMAKE_TOOLCHAIN_FILE=%CD%\vcpkg\scripts\buildsystems\vcpkg.cmake ^
           -DCMAKE_BUILD_TYPE=Release
 
     # ===============================

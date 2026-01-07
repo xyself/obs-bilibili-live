@@ -1,0 +1,9 @@
+{
+  "name": "obs-bilibili-live",
+  "version": "1.0.0",
+  "dependencies": [
+    "curl",
+    "nlohmann-json",
+    "pthreads-w32"
+  ]
+}
