@@ -31,7 +31,7 @@ jobs:
       with:
         vcpkgDirectory: ${{ github.workspace }}/vcpkg
         runVcpkgInstall: true
-        vcpkgGitCommitId: "2024.02.14"
+        vcpkgGitCommitId: d8f06c1f1cdb5c6f9f6d5e3e9d6cde7bbd8e5e3a
     - name: Configure
       run: |
         cmake -S . -B build ^
