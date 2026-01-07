@@ -5,9 +5,6 @@ on:
     tags:
       - "v*"
 
-permissions:
-  contents: write
-
 jobs:
   build:
     runs-on: windows-latest
@@ -29,17 +26,19 @@ jobs:
         arch: x64
 
     - name: Configure
+      shell: cmd
       run: |
         cmake -S . -B build ^
-          -A x64 ^
-          -DOBS_SOURCE_DIR=${{ github.workspace }}/obs-studio ^
+          -DOBS_SOURCE_DIR=%CD%\obs-studio ^
           -DCMAKE_BUILD_TYPE=Release
 
     - name: Build
+      shell: cmd
       run: |
         cmake --build build --config Release
 
     - name: Package
+      shell: cmd
       run: |
         mkdir package
         copy build\Release\bilibili-live.dll package\
