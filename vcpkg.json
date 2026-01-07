@@ -1,9 +1,0 @@
-{
-  "name": "obs-bilibili-live",
-  "version": "1.0.0",
-  "builtin-baseline": "c8f9c6a5f0a61c3a8c4b2bff0e5c3c44e9d5b6d7",
-  "dependencies": [
-    "curl",
-    "nlohmann-json"
-  ]
-}

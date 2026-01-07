@@ -5,6 +5,9 @@ on:
     tags:
       - "v*"
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: windows-latest
@@ -25,17 +28,11 @@ jobs:
       with:
         arch: x64
 
-    # ✅ vcpkg：自动读取 vcpkg.json
-    - name: Setup vcpkg
-      uses: lukka/run-vcpkg@v11
-      with:
-        runVcpkgInstall: true
     - name: Configure
       run: |
         cmake -S . -B build ^
           -A x64 ^
           -DOBS_SOURCE_DIR=${{ github.workspace }}/obs-studio ^
-          -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake ^
           -DCMAKE_BUILD_TYPE=Release
 
     - name: Build
