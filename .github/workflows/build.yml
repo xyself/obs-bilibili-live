@@ -25,14 +25,31 @@ jobs:
       with:
         arch: x64
 
-    - name: Configure
+    # 🔴 关键一步：配置 OBS
+    - name: Configure OBS
+      shell: cmd
+      run: |
+        cmake -S obs-studio -B obs-studio/build ^
+          -DENABLE_UI=OFF ^
+          -DENABLE_SCRIPTING=OFF ^
+          -DENABLE_PLUGINS=OFF ^
+          -DCMAKE_BUILD_TYPE=Release
+
+    # 🔴 关键一步：编译 OBS（生成 libobs）
+    - name: Build OBS
+      shell: cmd
+      run: |
+        cmake --build obs-studio/build --config Release
+
+    # ✅ 编译你的插件
+    - name: Configure Plugin
       shell: cmd
       run: |
         cmake -S . -B build ^
           -DOBS_SOURCE_DIR=%CD%\obs-studio ^
           -DCMAKE_BUILD_TYPE=Release
 
-    - name: Build
+    - name: Build Plugin
       shell: cmd
       run: |
         cmake --build build --config Release
